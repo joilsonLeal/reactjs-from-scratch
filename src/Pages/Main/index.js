@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 import api from '../../services/api';
+import Container from '../../components/Container';
 
-import { Container, Form, SubmitButton, List } from './styles';
+import { Form, SubmitButton, List } from './styles';
 
 class Main extends Component {
   state = {
@@ -53,7 +55,7 @@ class Main extends Component {
     });
   }
 
-  render ( ) {
+  render () {
     const { newRepo, repositories, load } = this.state;
     return (
       <Container>
@@ -79,10 +81,12 @@ class Main extends Component {
         </Form>
 
         <List>
-          {repositories.map(repo => (
-            <li key={repo.name}>
-              <span>{repo.name}</span>
-              <a href="#" target="_blank">Detalhes</a>
+          {repositories.map(repository => (
+            <li key={repository.name}>
+              <span>{repository.name}</span>
+              <Link to={`/repository/${encodeURIComponent(repository.name)}`}>
+                Detalhes
+              </Link>
             </li>
           ))}
         </List>
