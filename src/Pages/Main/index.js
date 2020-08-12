@@ -55,7 +55,7 @@ class Main extends Component {
       });
 
     } catch (error) {
-      console.log(error);
+      this.setState({load: false});
     }
   }
 
