@@ -41,18 +41,22 @@ class Main extends Component {
     this.setState({ load: true });
 
     const { newRepo, repositories } = this.state;
+    try {
+      const response = await api.get(`/repos/${newRepo}`);
 
-    const response = await api.get(`/repos/${newRepo}`);
+      const data = {
+        name: response.data.full_name,
+      };
 
-    const data = {
-      name: response.data.full_name,
-    };
+      this.setState({
+        repositories: [...repositories, data],
+        newRepo: '',
+        load: false,
+      });
 
-    this.setState({
-      repositories: [...repositories, data],
-      newRepo: '',
-      load: false,
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render () {
